@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const A1 = "A.Hung, A.Tien, Le, Nguyen, B.Ngoc";
+        const A2 = "Vu, Duong, Tran, C.Hai, D.Loan";
+
+        function getFullNames(a1, a2) {
+        const names = new Set();
+        const fullNames = [];
+
+        // Tách tên và họ từ mảng A1
+        a1.split(', ').forEach(name => {
+            const [firstInitial, lastName] = name.split(', ');
+            const firstName = firstInitial.split('.')[0];
+            names.add(`${lastName} ${firstName}`);
+        });
+
+        // Tách tên và họ từ mảng A2
+        a2.split(', ').forEach(name => {
+            const [lastName, firstInitial] = name.split(', ');
+            const firstName = firstInitial.split('.')[0];
+            names.add(`${lastName} ${firstName}`);
+        });
+
+        // Lấy 5 họ tên đầy đủ không trùng lặp
+        names.forEach(name => {
+            if (fullNames.length < 5) {
+            fullNames.push(name);
+            }
+        });
+
+        return fullNames;
+        }
+
+        const fullNames = getFullNames(A1, A2);
+        console.log(fullNames);
+    </script>
+</body>
+</html>

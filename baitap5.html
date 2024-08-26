@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Common Elements in Strings</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    pre {
+      white-space: pre-wrap;
+    }
+    input {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Common Elements in Strings</h1>
+  <input type="text" id="input1" placeholder="Enter string 1">
+  <input type="text" id="input2" placeholder="Enter string 2">
+  <button onclick="findCommonElements()">Find Common Elements</button>
+  <pre id="output"></pre>
+
+  <script>
+    function findCommonElements() {
+      const a1 = document.getElementById('input1').value;
+      const a2 = document.getElementById('input2').value;
+
+      // Tạo object để lưu trữ số lần xuất hiện của từng ký tự
+      const charCount1 = {};
+      const charCount2 = {};
+
+      // Đếm số lần xuất hiện của từng ký tự trong chuỗi a1 và a2
+      for (let char of a1) {
+        charCount1[char] = (charCount1[char] || 0) + 1;
+      }
+      for (let char of a2) {
+        charCount2[char] = (charCount2[char] || 0) + 1;
+      }
+
+      // Tìm các ký tự chung và số lần xuất hiện
+      const commonChars = [];
+      for (let char in charCount1) {
+        if (charCount2[char]) {
+          commonChars.push([char, charCount1[char] + charCount2[char]]);
+        }
+      }
+
+      // Sắp xếp các ký tự theo số lần xuất hiện giảm dần
+      commonChars.sort((a, b) => b[1] - a[1]);
+
+      // Lấy ký tự xuất hiện nhiều nhất và thứ hai
+      const mostCommonChar = commonChars[0][0];
+      const secondMostCommonChar = commonChars[1]?.[0] || 'None';
+
+      // Tính tổng số lần xuất hiện của ký tự xuất hiện nhiều nhất
+      const mostCommonCount = commonChars[0][1];
+
+      // Hiển thị kết quả
+      const output = `
+Ký tự xuất hiện nhiều nhất: ${mostCommonChar}
+Tổng số lần xuất hiện: ${mostCommonCount}
+Ký tự xuất hiện nhiều thứ hai: ${secondMostCommonChar}
+`;
+
+      document.getElementById('output').textContent = output;
+    }
+  </script>
+</body>
+</html>

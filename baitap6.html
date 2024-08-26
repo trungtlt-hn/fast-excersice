@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Lịch Can - Chi</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    input {
+      margin-bottom: 10px;
+      padding: 5px;
+      font-size: 16px;
+    }
+    #output {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Tính năm Can - Chi</h1>
+  <input type="number" id="yearInput" placeholder="Enter a year" />
+  <button onclick="findZodiac()">Find</button>
+  <div id="output"></div>
+
+  <script>
+    function findZodiac() {
+      const yearInput = document.getElementById('yearInput').value;
+      if (yearInput === '') {
+        document.getElementById('output').textContent = 'Please enter a year.';
+        return;
+      }
+
+      const year = parseInt(yearInput);
+      const isLeapYear = checkLeapYear(year);
+      const zodiac = getZodiacSign(year);
+      const element = getElement(year);
+
+      let output = `${yearInput} là năm ${zodiac}, thuộc mệnh ${element}. `;
+      if (isLeapYear) {
+        output += 'Năm này là năm nhuận';
+      }
+      else{
+        output += 'Năm này không phải năm nhuận';
+      }
+      document.getElementById('output').textContent = output;
+    }
+
+    function getZodiacSign(year) {
+      const zodiacSigns = [
+        'Tý', 'Sửu', 'Dần', 'Mão', 'Thìn', 'Tỵ',
+        'Ngọ', 'Mùi', 'Thân', 'Dậu', 'Tuất', 'Hợi'
+      ];
+      return zodiacSigns[(year - 4) % 12];
+    }
+
+    function getElement(year) {
+      const elements = ['Mộc', 'Hỏa', 'Thổ', 'Kim', 'Thủy'];
+      return elements[(year - 4) % 5];
+    }
+
+    function checkLeapYear(year) {
+      return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Lịch chào cờ phòng lập trình FAST</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px;;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    input[type=date] {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #254180;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: #254180;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Lịch chào cờ phòng lập trình FAST</h1>
+    <form id="dateForm">
+      <label for="date">Enter a date:</label>
+      <input type="date" id="date" name="date" required>
+      <button type="submit">Submit</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+      const dateForm = document.getElementById('dateForm');
+      const resultDiv = document.getElementById('result');
+
+      dateForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const selectedDate = new Date(dateForm.date.value);
+        const isMonday = selectedDate.getDay() === 1;
+
+        let nextMonday = new Date(selectedDate.getTime() + (8 * 7 * 24 * 60 * 60 * 1000));
+        nextMonday.setDate(nextMonday.getDate() - (nextMonday.getDay() - 1));
+
+        if (isMonday) {
+          resultDiv.innerHTML = `Ngày (${selectedDate.toLocaleDateString()}) là ngày đầu tuần, lịch chào cờ tiếp theo là ngày ${nextMonday.toLocaleDateString()}.`;
+        } else {
+          resultDiv.innerHTML = `Ngày (${selectedDate.toLocaleDateString()}) không phải ngày đầu tuần.`;
+        }
+      });
+    </script>
+  </div>
+</body>
+</html>

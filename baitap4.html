@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Number List</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    pre {
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <h1>Number List</h1>
+  <button onclick="processNumbers()">Generate Random Numbers</button>
+  <pre id="output"></pre>
+
+  <script>
+    function processNumbers() {
+      // Tạo một dãy số ngẫu nhiên từ 1 đến 200
+      const numCount = Math.floor(Math.random() * 20) + 5; // Số lượng số ngẫu nhiên từ 5 đến 25
+      const numbers = Array.from({ length: numCount }, () => Math.floor(Math.random() * 200) + 1);
+
+      // Tìm số lớn nhất và số nhỏ nhất
+      const maxNum = Math.max(...numbers);
+      const minNum = Math.min(...numbers);
+
+      // Danh sách các số chẵn
+      const evenNums = numbers.filter(num => num % 2 === 0);
+
+      // Danh sách các số lẻ
+      const oddNums = numbers.filter(num => num % 2 !== 0);
+
+      // Danh sách các số nguyên tố
+      function isPrime(n) {
+        if (n <= 1) return false;
+        for (let i = 2; i <= Math.sqrt(n); i++) {
+          if (n % i === 0) return false;
+        }
+        return true;
+      }
+      const primeNums = numbers.filter(isPrime);
+
+      // Tổng các số lẻ
+      const oddSum = oddNums.reduce((sum, num) => sum + num, 0);
+
+      // Tổng các số chẵn
+      const evenSum = evenNums.reduce((sum, num) => sum + num, 0);
+
+      // Tổng các số chẵn và lẻ
+      const totalSum = numbers.reduce((sum, num) => sum + num, 0);
+
+      // Sắp xếp các số theo thứ tự từ bé đến lớn và ngược lại
+      const sortedAsc = [...numbers].sort((a, b) => a - b);
+      const sortedDesc = [...numbers].sort((a, b) => b - a);
+
+      // Chèn tổng của 2 số đầu cuối vào vị trí thứ 3
+      const firstNum = sortedAsc[0];
+      const lastNum = sortedAsc[sortedAsc.length - 1];
+      const total = firstNum + lastNum;
+      sortedAsc.splice(2, 0, total);
+
+      // Hiển thị kết quả
+      const output = `
+Dãy số: ${numbers}
+Số lớn nhất: ${maxNum}
+Số nhỏ nhất: ${minNum}
+Danh sách các số chẵn: ${evenNums}
+Danh sách các số lẻ: ${oddNums}
+Danh sách các số nguyên tố: ${primeNums}
+Tổng các số lẻ: ${oddSum}
+Tổng các số chẵn: ${evenSum}
+Tổng các số chẵn và lẻ: ${totalSum}
+Các số sắp xếp từ bé đến lớn: ${sortedAsc}
+Các số sắp xếp từ lớn đến bé: ${sortedDesc}
+`;
+
+      document.getElementById('output').textContent = output;
+    }
+  </script>
+</body>
+</html>
